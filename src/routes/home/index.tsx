@@ -1,20 +1,26 @@
 /** 系统主页面 */
-import { Layout, Menu, Typography, Image, Carousel } from "antd"
+import { Layout, Menu, Typography, Image, Carousel, Button, Modal } from "antd"
 import { UserOutlined } from "@ant-design/icons"
 import styles from "./index.module.scss"
 import { menuList, guideList } from "./constant"
 import { GuideCard } from "./component"
+import AuthModal from "../log/log-in"
+import { showComponents } from "../../components/help"
 const { Header, Content, Footer } = Layout
 const { Title } = Typography
 
 const Home: React.FC = function () {
+  /** 点击头像登录 */
+  const handleLogin = function () {
+    showComponents({ Component: AuthModal })
+  }
   return (
     <>
       <Layout className="layout">
         {/* 首部 */}
         <Header className={styles.header}>
           <Menu items={menuList} theme="dark" mode="horizontal" />
-          <UserOutlined className={styles.signIcon} />
+          <UserOutlined className={styles.signIcon} onClick={handleLogin} />
         </Header>
         {/* 内容 */}
         <Content className={styles.contentWrap}>
