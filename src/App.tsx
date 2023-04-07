@@ -1,7 +1,6 @@
 import Home from "./routes/home"
 
 function App() {
-
   return (
     <div className="App">
       <Home />
@@ -10,4 +9,3 @@ function App() {
 }
 
 export default App
-

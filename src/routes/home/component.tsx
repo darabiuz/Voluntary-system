@@ -17,7 +17,7 @@ export const GuideCard: React.FC<{
     <Row gutter={16}>
       {guideList?.map((item) => {
         return (
-          <Col span={6}>
+          <Col span={6} key={item.title}>
             <Title level={4}>{item?.title}</Title>
             <p>{item?.description}</p>
             <Button type="primary">{item?.buttonText}</Button>
