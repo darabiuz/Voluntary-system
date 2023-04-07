@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react"
 import { Button, Form, Input, Space } from "antd"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { LoginMethodEnum } from "./constant"
+import Password from "antd/es/input/Password"
 const FormItem = Form.Item
 
 const WAIT_MAX = 60
@@ -13,6 +14,10 @@ export const LogFormDetail: FC<{ logMethod: string }> = ({ logMethod }) => {
   const isPassWord = Number(logMethod) === LoginMethodEnum.passWord
 
   const [form] = Form.useForm()
+  useEffect(() => {
+    form.setFieldValue("phoneNumber", null)
+    form.setFieldValue("vCode", null)
+  }, [logMethod])
 
   const validatePhone = (_: any, value: any) => {
     // 检查手机号是否合法
@@ -65,7 +70,7 @@ export const LogFormDetail: FC<{ logMethod: string }> = ({ logMethod }) => {
           />
         </FormItem>
         <FormItem name="vCode" rules={[{ required: true, message: "请输入" }]}>
-          <Input
+          <Password
             prefix={<LockOutlined />}
             type="vCode"
             placeholder={isPassWord ? "密码" : "验证码"}
