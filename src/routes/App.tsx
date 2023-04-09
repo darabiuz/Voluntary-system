@@ -2,7 +2,7 @@ import { Layout, Menu } from "antd"
 import { UserOutlined } from "@ant-design/icons"
 import styles from "./index.module.scss"
 import { menuList } from "./constant"
-import { showComponents } from "../components/help"
+import { showComponents } from "@components/help"
 import AuthModal from "./log/log-in"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -29,9 +29,6 @@ function App() {
             onClick={(e) => {
               setCurrent(e.key)
               navigate(e.key)
-            }}
-            style={{
-              marginLeft: "50px"
             }}
           />
           <UserOutlined className={styles.signIcon} onClick={handleLogin} />
