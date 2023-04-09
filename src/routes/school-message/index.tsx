@@ -1,7 +1,7 @@
 // src/components/VolunteerForm.tsx
 import React from "react"
 
-const VolunteerForm: React.FC = () => {
+const SchoolSearch: React.FC = () => {
   return (
     <div>
       <h1>查学校</h1>
@@ -10,4 +10,4 @@ const VolunteerForm: React.FC = () => {
   )
 }
 
-export default VolunteerForm
+export default SchoolSearch
