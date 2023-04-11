@@ -18,10 +18,10 @@
     "jsx": "react-jsx",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@help": ["src/help/*"],
-      "@safeApi": ["src/safe-api/*"],
-      "@assets": ["src/assets/*"],
-      "@routes": ["src/routes/*"]
+      "@help/*": ["src/help/*"],
+      "@safeApi/*": ["src/safe-api/*"],
+      "@assets/*": ["src/assets/*"],
+      "@routes/*": ["src/routes/*"]
     }
   },
   "include": ["src"],

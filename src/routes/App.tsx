@@ -10,11 +10,18 @@ const { Header, Content, Footer } = Layout
 
 function App() {
   /** 点击头像登录 */
+  const navigate = useNavigate()
+  const [currentArr, setCurrentArr] = useState<string[] | undefined>(["home"])
+
   const handleLogin = function () {
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
+      navigate("userCenter")
+      setCurrentArr(undefined)
+      return
+    }
     showComponents({ Component: AuthModal })
   }
-  const navigate = useNavigate()
-  const [current, setCurrent] = useState("home")
 
   return (
     <div className="App">
@@ -25,9 +32,9 @@ function App() {
             items={menuList}
             theme="dark"
             mode="horizontal"
-            selectedKeys={[current]}
+            selectedKeys={currentArr}
             onClick={(e) => {
-              setCurrent(e.key)
+              setCurrentArr([e.key])
               navigate(e.key)
             }}
           />

@@ -7,6 +7,7 @@ import RankSearch from "./rank"
 import AIPrediction from "./predict"
 import AboutAs from "./about"
 import Wishlist from "./wish-list"
+import UserCenter from "./user-center"
 
 export const router = createBrowserRouter([
   {
@@ -20,11 +21,6 @@ export const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />
-        // loader: async ({ params, request }) => {
-        //   if (localStorage.getItem("userId") !== null) {
-        //     throw redirect("/login")
-        //   }
-        // }
       },
       {
         path: "schoolSearch",
@@ -45,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "wishlist",
         element: <Wishlist />
+      },
+      {
+        path: "userCenter",
+        element: <UserCenter />
       },
       {
         path: "aboutAs",
