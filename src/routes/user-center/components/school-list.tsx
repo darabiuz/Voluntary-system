@@ -43,14 +43,12 @@ const SchoolList: React.FC = () => {
       <Title level={5}>我的志愿簿</Title>
       <Collapse>
         {schools.map((school, index) => {
-          console.log(school, 1111111)
-
           return (
             <Panel header={school.name} key={index}>
               <MatrixTable
                 transform={(column, data) => {
                   if (column.key === "majors") return <MajorList />
-                  return data
+                  return data ? data.toString() : ""
                 }}
                 columns={matrixColumns}
                 dataSource={{ ...school }}
