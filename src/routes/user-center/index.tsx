@@ -4,22 +4,21 @@ import { Layout, Row, Collapse, Typography } from "antd"
 import styles from "./index.module.scss"
 import UserInfoCard from "./components/user-info-card"
 import SchoolList from "./components/school-list"
+import EasyWrapper from "@components/easy-wrapper"
+import BlockTitle from "@components/block-title"
 const { Content } = Layout
-const { Title } = Typography
 
 const UserCenter = () => {
   return (
-    <div className={styles.contentWrap}>
-      <Title level={2} className={styles.title}>
-        个人中心
-      </Title>
+    <EasyWrapper>
+      <BlockTitle content={"个人中心"} />
       <Content>
         <Row>
           <UserInfoCard />
           <SchoolList />
         </Row>
       </Content>
-    </div>
+    </EasyWrapper>
   )
 }
 

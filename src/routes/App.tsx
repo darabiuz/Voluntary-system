@@ -4,14 +4,18 @@ import styles from "./index.module.scss"
 import { menuList } from "./constant"
 import { showComponents } from "@components/help"
 import AuthModal from "./log/log-in"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react"
 const { Header, Content, Footer } = Layout
+
+const DEFAULT_PATH = "HOME"
 
 function App() {
   /** 点击头像登录 */
   const navigate = useNavigate()
-  const [currentArr, setCurrentArr] = useState<string[] | undefined>(["home"])
+  const location = useLocation()
+  const current = location.pathname.slice(1) || DEFAULT_PATH
+  const [currentArr, setCurrentArr] = useState<string[] | undefined>([current])
 
   const handleLogin = function () {
     const userId = localStorage.getItem("userId")
