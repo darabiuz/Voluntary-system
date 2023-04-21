@@ -1,3 +1,4 @@
+import { Form } from "antd"
 import { FC } from "react"
 import { createRoot } from "react-dom/client"
 
@@ -26,4 +27,7 @@ export const showComponents = function ({ Component, props }: FuncType) {
     }
   }
   render()
+  return destroy
 }
+
+export const FormItem = Form.Item

@@ -3,57 +3,100 @@
  * 1. 点击右上角可以关闭
  * 2. 点击确认/取消，执行onsuccess，onCancle回调，
  * 3. 点击
+ * 4. 自动loading
  */
-import React, { useEffect, useState } from "react"
-import { Modal } from "antd"
-import { ExclamationCircleFilled } from "@ant-design/icons"
+import React, { useState } from "react"
+import { Form, FormInstance, Modal, ModalFuncProps, message } from "antd"
+import { ComponentT, showComponents } from "./help"
+import { errorHandle } from "@help/errorUtils"
 
-const form = function () {
-  //   const [isModalOpen, setIsModalOpen] = useState(false)
-  //   const showModal = () => {
-  //     setIsModalOpen(true)
-  //   }
-  //   const handleOk = () => {
-  //     setIsModalOpen(false)
-  //   }
-
-  //   const handleCancel = () => {
-  //     setIsModalOpen(false)
-  //   }
-
-  Modal.info({
-    title: "Are you sure delete this task?",
-    // icon: <ExclamationCircleFilled />,
-    content: "Some descriptions",
-    okText: "Yes",
-    okType: "danger",
-    cancelText: "No",
-    onOk() {
-      console.log("OK")
-    },
-    onCancel() {
-      console.log("Cancel")
+const form = function ({
+  title = "弹窗",
+  okText = "确认",
+  cancelText = "取消",
+  onOk,
+  onCancel,
+  form,
+  formApi,
+  initialValues = {}
+}: FormConfigProps) {
+  const FormModal = ({ destroy }: ComponentT) => {
+    const [loading, setLoading] = useState<boolean>(false)
+    const handleOk = async (destroy: () => void) => {
+      try {
+        setLoading(true)
+        if (formApi) {
+          const values = await formApi.validateFields()
+          await onOk?.(values, destroy)
+        }
+        await onOk?.({}, destroy)
+      } catch (e) {
+        errorHandle(e)
+      } finally {
+        setLoading(false)
+      }
     }
-  })
 
-  //   const ModalLog = function () {
-  //     return (
-  //       <Modal
-  //         title="Basic Modal"
-  //         open={isModalOpen}
-  //         onOk={handleOk}
-  //         onCancel={handleCancel}
-  //       >
-  //         <p>Some contents...</p>
-  //         <p>Some contents...</p>
-  //         <p>Some contents...</p>
-  //       </Modal>
-  //     )
-  //   }
-  //   useEffect(() => {}, [])
-  //   return ModalLog
+    const handleCancel = (destroy: () => void) => {
+      if (onCancel) {
+        onCancel(destroy)
+      }
+      destroy()
+    }
+
+    return (
+      <Modal
+        title={title}
+        open={true}
+        onOk={() => handleOk(destroy)}
+        onCancel={() => {
+          handleCancel(destroy)
+        }}
+        okText={okText}
+        cancelText={cancelText}
+        confirmLoading={loading}
+      >
+        <Form form={formApi} initialValues={initialValues}>
+          {/* 根据您的需求添加表单项，或根据 config 中的参数动态生成表单项 */}
+          {form}
+        </Form>
+      </Modal>
+    )
+  }
+
+  return showComponents({ Component: FormModal })
+}
+
+const confirm = function ({ ...props }: ModalFuncProps) {
+  Modal.confirm({
+    ...props
+  })
+}
+const warn = function ({ ...props }: ModalFuncProps) {
+  Modal.warn({
+    ...props
+  })
+}
+const success = function ({ ...props }: ModalFuncProps) {
+  Modal.success({
+    ...props
+  })
 }
 
 export const dialog = {
-  form: form
+  form,
+  confirm,
+  warn,
+  success
+}
+
+interface FormConfigProps {
+  title?: string
+  okText?: string
+  cancelText?: string
+  onOk?: (values: any, destroy: () => void) => void
+  onCancel?: (destroy: () => void) => void
+  form?: React.ReactNode
+  initialValues?: { [key in string]: any }
+  formApi?: FormInstance
 }
