@@ -3,10 +3,13 @@ import BlockTitle from "@components/block-title"
 import EasyWrapper from "@components/easy-wrapper"
 import React, { useEffect, useState } from "react"
 import EasyFilter from "./components/easy-filter"
-import { data, filterData } from "./constant"
-import { Space, List, Button, Divider } from "antd"
+import { filterData } from "./constant"
+import { Space, List, Button, Divider, Form } from "antd"
 import styles from "./index.module.scss"
 import { Link } from "react-router-dom"
+import { dialog } from "@components/dialog"
+import { FormItem } from "@components/help"
+import { useForm } from "antd/es/form/Form"
 
 const SchoolSearch: React.FC = () => {
   /** 筛选对象，默认为全部 */
@@ -15,6 +18,7 @@ const SchoolSearch: React.FC = () => {
     characteristic: "全部",
     type: "全部"
   })
+  const [formApi] = useForm()
 
   /** 院校信息 */
   const [ds, setDs] = useState<any>([])
@@ -40,6 +44,19 @@ const SchoolSearch: React.FC = () => {
       ...prev,
       [key]: value
     }))
+  }
+
+  const handleAddWishList = (schoolName: string) => {
+    dialog.form({
+      title: `志愿簿添加`,
+      onOk: async () => {
+        return new Promise<void>((res) => {
+          console.log("执行onOk")
+          throw Error
+          res()
+        })
+      }
+    })
   }
 
   useEffect(() => {
@@ -70,7 +87,14 @@ const SchoolSearch: React.FC = () => {
           <List.Item
             key={item.title}
             actions={[
-              <Button type="primary">+志愿簿</Button>,
+              <Button
+                type="primary"
+                onClick={() => {
+                  handleAddWishList(item.title)
+                }}
+              >
+                +志愿簿
+              </Button>,
               <Button>查看详情</Button>
             ]}
           >

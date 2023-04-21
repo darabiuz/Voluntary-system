@@ -8,7 +8,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react"
 const { Header, Content, Footer } = Layout
 
-const DEFAULT_PATH = "HOME"
+const DEFAULT_PATH = "home"
 
 function App() {
   /** 点击头像登录 */

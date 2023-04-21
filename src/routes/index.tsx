@@ -8,6 +8,7 @@ import AIPrediction from "./predict"
 import AboutAs from "./about"
 import Wishlist from "./wish-list"
 import UserCenter from "./user-center"
+import { MajorsDetails } from "./majors/majors-details"
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,16 @@ export const router = createBrowserRouter([
       {
         path: "majorsSearch",
         element: <MajorsSearch />
+        // children: [
+        //   {
+        //     path: "majorsSearch/:majorId",
+        //     element: <MajorsDetails />
+        //   }
+        // ]
+      },
+      {
+        path: "majorsSearch/:majorId",
+        element: <MajorsDetails />
       },
       {
         path: "rankSearch",
