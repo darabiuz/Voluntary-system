@@ -25,17 +25,9 @@ const SchoolSearch: React.FC = () => {
 
   const data = [
     {
-      title: "西南大学"
+      title: "西南大学",
+      id: "12222"
       // type:
-    },
-    {
-      title: "四川大学"
-    },
-    {
-      title: "中国海洋大学"
-    },
-    {
-      title: "西南交通大学"
     }
   ]
 
@@ -57,6 +49,10 @@ const SchoolSearch: React.FC = () => {
         })
       }
     })
+  }
+
+  const handleClickForDetails = (schoolId: string, schoolName: string) => {
+    window.open(`schoolSearch/${schoolId}/${schoolName}`)
   }
 
   useEffect(() => {
@@ -95,7 +91,13 @@ const SchoolSearch: React.FC = () => {
               >
                 +志愿簿
               </Button>,
-              <Button>查看详情</Button>
+              <Button
+                onClick={() => {
+                  handleClickForDetails(item.id, item.title)
+                }}
+              >
+                查看详情
+              </Button>
             ]}
           >
             <List.Item.Meta

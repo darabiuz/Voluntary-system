@@ -18,8 +18,8 @@ const data = [
 
 const MajorsSearch: React.FC = () => {
   const [options, setOptions] = useState<{ value: string }[]>([])
-  const handleRelatedSchools = (majorId: string) => {
-    window.open(`majorsSearch/${majorId}`)
+  const handleRelatedSchools = (majorId: string, majorName: string) => {
+    window.open(`majorsSearch/${majorId}/${majorName}`)
   }
 
   const onSelect = (value: string) => {
@@ -72,7 +72,7 @@ const MajorsSearch: React.FC = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  handleRelatedSchools(item.code)
+                  handleRelatedSchools(item.code, item.majorName)
                 }}
               >
                 开设院校详情

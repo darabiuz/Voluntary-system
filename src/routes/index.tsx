@@ -9,6 +9,7 @@ import AboutAs from "./about"
 import Wishlist from "./wish-list"
 import UserCenter from "./user-center"
 import { MajorsDetails } from "./majors/majors-details"
+import { SchoolDetails } from "./school-message/school-detail"
 
 export const router = createBrowserRouter([
   {
@@ -28,17 +29,15 @@ export const router = createBrowserRouter([
         element: <SchoolSearch />
       },
       {
-        path: "majorsSearch",
-        element: <MajorsSearch />
-        // children: [
-        //   {
-        //     path: "majorsSearch/:majorId",
-        //     element: <MajorsDetails />
-        //   }
-        // ]
+        path: "schoolSearch/:schoolId/:schoolName?",
+        element: <SchoolDetails />
       },
       {
-        path: "majorsSearch/:majorId",
+        path: "majorsSearch",
+        element: <MajorsSearch />
+      },
+      {
+        path: "majorsSearch/:majorId/:majorName?",
         element: <MajorsDetails />
       },
       {
