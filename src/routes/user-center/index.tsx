@@ -3,7 +3,6 @@ import React from "react"
 import { Layout, Row, Collapse, Typography } from "antd"
 import styles from "./index.module.scss"
 import UserInfoCard from "./components/user-info-card"
-import SchoolList from "./components/school-list"
 import EasyWrapper from "@components/easy-wrapper"
 import BlockTitle from "@components/block-title"
 const { Content } = Layout
@@ -15,7 +14,6 @@ const UserCenter = () => {
       <Content>
         <Row>
           <UserInfoCard />
-          <SchoolList />
         </Row>
       </Content>
     </EasyWrapper>

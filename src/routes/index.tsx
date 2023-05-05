@@ -4,12 +4,11 @@ import Home from "./home"
 import SchoolSearch from "./school-message"
 import MajorsSearch from "./majors"
 import RankSearch from "./rank"
-import AIPrediction from "./predict"
-import AboutAs from "./about"
 import Wishlist from "./wish-list"
 import UserCenter from "./user-center"
 import { MajorsDetails } from "./majors/majors-details"
 import { SchoolDetails } from "./school-message/school-detail"
+import VolunteerPrediction from "./predict"
 
 export const router = createBrowserRouter([
   {
@@ -45,8 +44,8 @@ export const router = createBrowserRouter([
         element: <RankSearch />
       },
       {
-        path: "AIPrediction",
-        element: <AIPrediction />
+        path: "volunteerPrediction",
+        element: <VolunteerPrediction />
       },
       {
         path: "wishlist",
@@ -55,10 +54,6 @@ export const router = createBrowserRouter([
       {
         path: "userCenter",
         element: <UserCenter />
-      },
-      {
-        path: "aboutAs",
-        element: <AboutAs />
       }
     ]
   }

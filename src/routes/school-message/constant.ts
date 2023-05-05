@@ -28,6 +28,11 @@ export const provinces = [
   "青海"
 ]
 
+export const provincesOptions = provinces?.map((item) => ({
+  value: item,
+  label: item
+}))
+
 export const characteristics = ["全部", "985", "211", "双一流"]
 
 export const types = [
@@ -46,6 +51,11 @@ export const types = [
   "军事",
   "其他"
 ]
+
+export const typesOptions = types?.map((item) => ({
+  value: item,
+  label: item
+}))
 
 export const filterData = [
   { title: "所属地区", options: provinces, key: "province" },
