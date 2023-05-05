@@ -1,12 +1,16 @@
 // src/components/VolunteerForm.tsx
 import React from "react"
+import SchoolList from "./components/school-list"
+import EasyWrapper from "@components/easy-wrapper"
+import BlockTitle from "@components/block-title"
 
 const Wishlist: React.FC = () => {
   return (
-    <div>
-      <h1>我的志愿簿</h1>
-      {/* 在这里添加志愿填报表单和其他相关内容 */}
-    </div>
+    <EasyWrapper>
+      <BlockTitle content="我的志愿簿" />
+      <SchoolList />
+      {/* <SchoolList /> */}
+    </EasyWrapper>
   )
 }
 
