@@ -6,7 +6,7 @@ type RequestOptions = {
 }
 
 /** 这里需要设置baseUrl */
-const baseUrl = "https://api.example.com"
+const baseUrl = "http://127.0.0.1:5001/"
 
 const fetchApi = async (url: string, options: RequestOptions): Promise<any> => {
   try {

@@ -1,42 +1,78 @@
-import { Form } from "react-router-dom"
-import { InputItem, RadioItem, SelectItem } from "./form-item"
-import { FormItemProps, InputProps, RadioGroupProps, SelectProps } from "antd"
+import {
+  Button,
+  Form,
+  FormInstance,
+  FormItemProps,
+  Input,
+  InputProps,
+  Radio,
+  RadioGroupProps,
+  Select,
+  SelectProps
+} from "antd"
 import { FormItem } from "@components/help"
+import { useForm } from "antd/es/form/Form"
 
 export type BaseType = {
-  tag: "input" | "select" | "radio"
-} & Pick<InputProps, "placeholder"> &
-  Pick<SelectProps, "options"> &
+  tag: "input" | "select" | "radio" | "custom"
+  render?: () => React.ReactNode //支持自定义内容
+  format?: RegExp
+} & Pick<InputProps, "placeholder" | "allowClear" | "type"> &
+  Pick<SelectProps, "options" | "allowClear" | "mode"> &
   Pick<RadioGroupProps, "options">
 
-export type FormItemProp = Pick<FormItemProps, "label" | "name">
+export type FormItemProp = Pick<FormItemProps, "label" | "name" | "required">
 
 export type ColumnsType = BaseType & FormItemProp
 
 export const EasySearch: React.FC<{
   columns: ColumnsType[]
-}> = ({ columns }) => {
+  formApi?: any
+}> = ({ columns, formApi }) => {
   return (
-    <Form>
+    <Form form={formApi}>
       {columns.map((item) => {
-        const { tag, label, name, placeholder, options } = item
+        const { tag, label, name, required = false, ...others } = item
         switch (tag) {
           case "input":
             return (
-              <FormItem label={label} name={name}>
-                <InputItem inputProps={{ placeholder }} />
+              <FormItem
+                label={label}
+                name={name}
+                rules={[{ required: required, message: "请输入" }]}
+              >
+                <Input {...others}></Input>
               </FormItem>
             )
           case "radio":
             return (
-              <FormItem label={label} name={name}>
-                <RadioItem radioProps={{ options }} />
+              <FormItem
+                label={label}
+                name={name}
+                rules={[{ required: required, message: "请选择" }]}
+              >
+                <Radio.Group {...others}></Radio.Group>
               </FormItem>
             )
           case "select":
             return (
-              <FormItem label={label} name={name}>
-                <SelectItem selectProps={{ options }} />
+              <FormItem
+                label={label}
+                name={name}
+                rules={[{ required: required, message: "请选择" }]}
+              >
+                <Select {...others}></Select>
+              </FormItem>
+            )
+          case "custom":
+            const { render } = item
+            return (
+              <FormItem
+                label={label}
+                name={name}
+                rules={[{ required: required, message: "" }]}
+              >
+                {render && render()}
               </FormItem>
             )
           default:
