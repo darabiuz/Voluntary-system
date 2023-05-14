@@ -4,19 +4,7 @@ import { generateMap } from "@help/index"
 import { provincesOptions, typesOptions } from "@routes/school-message/constant"
 import { Button, Input, List, Space } from "antd"
 import { ColumnType } from "antd/es/table"
-
-const handleAddWishList = (schoolName: string) => {
-  dialog.form({
-    title: `志愿簿添加`,
-    onOk: async () => {
-      return new Promise<void>((res) => {
-        console.log("执行onOk")
-        throw Error
-        res()
-      })
-    }
-  })
-}
+import { handleAddWishList } from "./help"
 
 const descriptionOptions = [
   {
@@ -140,7 +128,7 @@ const tabItemMap = {
 
 export const tabItemOptions = generateMap(tabItemMap)
 
-export const tableColumns = (hasMajor: boolean) =>
+export const tableColumns = (hasMajor: boolean, batch: string) =>
   [
     {
       title: "院校名称",
@@ -201,7 +189,7 @@ export const tableColumns = (hasMajor: boolean) =>
         const data = record.receive_line_ref
         return (
           <List
-            dataSource={Object.keys(data)}
+            dataSource={Object.keys(data).reverse()}
             size="small"
             renderItem={(item) => (
               <List.Item>
@@ -224,32 +212,24 @@ export const tableColumns = (hasMajor: boolean) =>
       title: "操作",
       dataIndex: "custom",
       key: "custom",
-      render: (record: any) => {
+      render: (_: any, record: any) => {
         return (
-          <Space direction="vertical" size="large">
+          <Space direction="vertical" size="middle">
             <Button
               type="primary"
               onClick={() => {
-                handleAddWishList(record.schoolName)
+                handleAddWishList(record.school, batch)
               }}
             >
               +志愿簿
             </Button>
-            {hasMajor && (
-              <Button
-                type="primary"
-                onClick={() => {
-                  handleAddWishList(record.school)
-                }}
-              >
-                意愿专业上岸率
-              </Button>
-            )}
+            {hasMajor && <Button type="primary">预测专业上岸率</Button>}
           </Space>
         )
       }
     }
   ] as ColumnType<any>[]
+
 export const mbtiTableColumns = [
   {
     title: "MBTI人格",

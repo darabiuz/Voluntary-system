@@ -9,6 +9,7 @@ import React, { useState } from "react"
 import { Form, FormInstance, Modal, ModalFuncProps, message } from "antd"
 import { ComponentT, showComponents } from "./help"
 import { errorHandle } from "@help/errorUtils"
+import { useForm } from "antd/es/form/Form"
 
 const form = function ({
   title = "弹窗",
@@ -21,17 +22,16 @@ const form = function ({
   initialValues = {}
 }: FormConfigProps) {
   const FormModal = ({ destroy }: ComponentT) => {
+    const [formRef] = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const handleOk = async (destroy: () => void) => {
       try {
         setLoading(true)
-        if (formApi) {
-          const values = await formApi.validateFields()
-          await onOk?.(values, destroy)
-        }
-        await onOk?.({}, destroy)
+        const values = await (formApi || formRef).getFieldsValue()
+        await (formApi || formRef).validateFields()
+        await onOk?.(values, destroy)
       } catch (e) {
-        errorHandle(e)
+        // errorHandle(e)
       } finally {
         setLoading(false)
       }
@@ -56,7 +56,7 @@ const form = function ({
         cancelText={cancelText}
         confirmLoading={loading}
       >
-        <Form form={formApi} initialValues={initialValues}>
+        <Form form={formApi || formRef} initialValues={initialValues}>
           {/* 根据您的需求添加表单项，或根据 config 中的参数动态生成表单项 */}
           {form}
         </Form>

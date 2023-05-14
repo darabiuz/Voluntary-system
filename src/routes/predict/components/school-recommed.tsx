@@ -18,6 +18,7 @@ const SchoolRecommendCard: FC = () => {
   const [formApi] = useForm()
   const [tabItem, setTabItem] = useState<string>("稳妥")
   const [hasMajor, setHasMajor] = useState<boolean>(false)
+  const [batch, setBatch] = useState<string>("batch1")
   const [dataSource, setDataSource] = useState()
   const recommendResult = useRef()
 
@@ -45,6 +46,8 @@ const SchoolRecommendCard: FC = () => {
       majorFavor
     } = params
     setHasMajor(majorFavor !== undefined)
+    setBatch(batch)
+
     const description = arrayToObject(params?.["feature"])
     const filterConfig = filterEmptyValues({
       description,
@@ -52,7 +55,7 @@ const SchoolRecommendCard: FC = () => {
       type
     })
 
-    const res = await getSchoolRecommendResult({
+    await getSchoolRecommendResult({
       score: Number(score),
       category,
       batch,
@@ -61,7 +64,6 @@ const SchoolRecommendCard: FC = () => {
     }).then(
       (res) => {
         setDataSource(res?.[tabItem])
-
         recommendResult.current = res
       },
       (e) => errorHandle(e)
@@ -94,7 +96,7 @@ const SchoolRecommendCard: FC = () => {
         />
         <Table
           dataSource={dataSource}
-          columns={tableColumns(hasMajor)}
+          columns={tableColumns(hasMajor, batch)}
           scroll={{ x: "max-content" }}
           pagination={{ pageSize: 3 }}
           rowKey="schoolId"
