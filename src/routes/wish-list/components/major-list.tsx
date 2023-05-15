@@ -1,24 +1,29 @@
-import { Table } from "antd"
+import { LockOutlined, MonitorOutlined } from "@ant-design/icons"
+import { Button, List, Space, Table } from "antd"
 import React from "react"
-import { tableColumns } from "../constants"
 
 /** 志愿专业列表 */
-const MajorList: React.FC = () => {
+const MajorList: React.FC<{ data: any }> = ({ data }) => {
+  console.log(data)
   return (
-    <Table
-      pagination={{
-        pageSize: 4,
-        total: 20
+    <List
+      bordered
+      dataSource={data}
+      size="small"
+      renderItem={(item: any) => {
+        return (
+          <List.Item>
+            <Space>
+              <List.Item>{item}</List.Item>
+              <Button type="text" size="middle" icon={<MonitorOutlined />}>
+                <span style={{ color: "rgba(22, 119, 155, 1)" }}>
+                  专业上岸概率
+                </span>
+              </Button>
+            </Space>
+          </List.Item>
+        )
       }}
-      columns={tableColumns}
-      dataSource={[
-        {
-          key: 0,
-          project: "计算机科学",
-          minScore: "633",
-          minRank: 1289
-        }
-      ]}
     />
   )
 }

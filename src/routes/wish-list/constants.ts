@@ -5,11 +5,11 @@ export const matrixColumns = [
   },
   {
     label: "地理位置",
-    key: "location"
+    key: "province"
   },
   {
     label: "志愿专业",
-    key: "majors"
+    key: "wishMajorList"
   },
   {
     label: "上岸概率",
@@ -21,13 +21,5 @@ export const tableColumns = [
   {
     title: "志愿专业",
     key: "project"
-  },
-  {
-    title: "去年最低收分线",
-    key: "minScore"
-  },
-  {
-    title: "去年最低排名",
-    key: "minRank"
   }
 ]

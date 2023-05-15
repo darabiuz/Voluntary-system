@@ -9,7 +9,6 @@ const Wishlist: React.FC = () => {
     <EasyWrapper>
       <BlockTitle content="我的志愿簿" />
       <SchoolList />
-      {/* <SchoolList /> */}
     </EasyWrapper>
   )
 }

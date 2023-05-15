@@ -2,48 +2,39 @@
 import { MatrixTable } from "@components/martrix"
 import MajorList from "./major-list"
 import { Collapse, Space } from "antd"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { matrixColumns } from "../constants"
+import { getWishListDetails } from "@safeApi/wish-list"
+import { fetchMajorDetails } from "@safeApi/majors"
+import { errorHandle } from "@help/errorUtils"
 const { Panel } = Collapse
-const schools = [
-  {
-    name: "北京大学",
-    type: "985, 双一流",
-    location: "北京市",
-    majors: [
-      {
-        name: "计算机科学与技术",
-        score: 650,
-        rank: 10
-      }
-    ],
-    admissionProbability: "60%"
-  },
-  {
-    name: "清华大学",
-    type: "985, 双一流",
-    location: "北京市",
-    majors: [
-      {
-        name: "软件工程",
-        score: 640,
-        rank: 20
-      }
-    ],
-    admissionProbability: "50%"
-  }
-]
+
 /** 志愿簿 */
 const SchoolList: React.FC = () => {
+  const [dataSource, setDataSource] = useState([])
+
+  const getDataSource = async () => {
+    try {
+      const res = await fetchMajorDetails({})
+      setDataSource(res?.list)
+    } catch (error) {
+      errorHandle(error)
+    }
+  }
+  useEffect(() => {
+    // 根据用户的id获取志愿簿
+    getDataSource()
+  }, [])
   return (
     <Space>
       <Collapse style={{ width: "600px" }}>
-        {schools.map((school, index) => {
+        {dataSource?.map((school: any, index: number) => {
           return (
-            <Panel header={school.name} key={index}>
+            <Panel header={school.school} key={index}>
               <MatrixTable
                 transform={(column, data) => {
-                  if (column.key === "majors") return <MajorList />
+                  if (column.key === "wishMajorList")
+                    return <MajorList data={data} />
                   return data ? data.toString() : ""
                 }}
                 columns={matrixColumns}

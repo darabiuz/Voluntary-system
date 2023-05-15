@@ -3,6 +3,7 @@ type RequestOptions = {
   method: "GET" | "POST"
   body?: any
   headers?: HeadersInit
+  credentials?: RequestCredentials
 }
 
 /** 这里需要设置baseUrl */
@@ -34,6 +35,7 @@ export const post = async (url: string, body: any): Promise<any> => {
   return fetchApi(apiUrl, {
     method: "POST",
     body: JSON.stringify(body),
-    headers
+    headers,
+    credentials: "include"
   })
 }
