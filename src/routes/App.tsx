@@ -1,11 +1,17 @@
-import { Layout, Menu } from "antd"
+import { Layout, Menu, Tabs, message } from "antd"
 import { UserOutlined } from "@ant-design/icons"
 import styles from "./index.module.scss"
 import { menuList } from "./constant"
 import { showComponents } from "@components/help"
 import AuthModal from "./log/log-in"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { dialog } from "@components/dialog"
+import { LogFormDetail } from "./log/components"
+import { loginMethodList } from "./log/constant"
+import { useForm } from "antd/es/form/Form"
+import { userLogin } from "@safeApi/log-in"
+import { errorHandle } from "@help/errorUtils"
 const { Header, Content, Footer } = Layout
 
 const DEFAULT_PATH = "home"
@@ -16,15 +22,40 @@ function App() {
   const location = useLocation()
   const current = location.pathname.slice(1) || DEFAULT_PATH
   const [currentArr, setCurrentArr] = useState<string[] | undefined>([current])
+  const [formApi] = useForm()
 
   const handleLogin = function () {
     const userId = localStorage.getItem("userId")
-    if (!userId) {
+    if (userId) {
       navigate("userCenter")
       setCurrentArr(undefined)
       return
     }
-    showComponents({ Component: AuthModal })
+    // 未登录，调用登录弹窗
+    dialog.form({
+      title: "登录",
+      formApi,
+      width: 400,
+      form: <LogFormDetail formApi={formApi} />,
+      initialValues: { phoneNumber: undefined, vCode: undefined },
+      onOk: async (values, destroy) => {
+        // 调用api登录
+        const flag = Object.keys(values)?.includes("code")
+        // login
+        const res = await userLogin(
+          new URLSearchParams({
+            ...values,
+            flag
+          })
+        )
+        if (res.code == 1) {
+          localStorage.setItem("userId", res?.data?.id)
+          message.success("登录成功")
+          destroy && destroy()
+        }
+        errorHandle(null, res?.message)
+      }
+    })
   }
 
   return (

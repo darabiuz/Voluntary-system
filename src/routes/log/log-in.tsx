@@ -1,16 +1,15 @@
 /** 登录注册弹窗 */
 import React, { FC, useState } from "react"
-import { Button, Modal, Form, Input, Tabs } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { Button, Modal, Form, Tabs } from "antd"
 import { ComponentT } from "../../components/help"
-import { loginMethodList, LoginMethodEnum } from "./constant"
+import { loginMethodList } from "./constant"
 import { LogFormDetail } from "./components"
-const FormItem = Form.Item
 const AuthModal: FC<ComponentT> = (props) => {
   const { destroy } = props
   const [form] = Form.useForm()
   /** 登录方式 */
   const [logMethod, setLogMethod] = useState<string>("1")
+
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       // onLogin(values as { username: string; password: string })
@@ -24,7 +23,6 @@ const AuthModal: FC<ComponentT> = (props) => {
     }
   }
 
-  /** 切换登录方式 */
   const handleSwitch = (activeKey: string) => {
     setLogMethod(activeKey)
   }

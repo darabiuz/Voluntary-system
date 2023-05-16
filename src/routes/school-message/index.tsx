@@ -10,6 +10,7 @@ import { Link } from "react-router-dom"
 import { dialog } from "@components/dialog"
 import { FormItem } from "@components/help"
 import { useForm } from "antd/es/form/Form"
+import { errorHandle } from "@help/errorUtils"
 
 const SchoolSearch: React.FC = () => {
   /** 筛选对象，默认为全部 */
@@ -22,14 +23,6 @@ const SchoolSearch: React.FC = () => {
 
   /** 院校信息 */
   const [ds, setDs] = useState<any>([])
-
-  const data = [
-    {
-      title: "西南大学",
-      id: "12222"
-      // type:
-    }
-  ]
 
   const handleFilterChange = (value: string, key: string) => {
     setFilters((prev) => ({
@@ -55,8 +48,16 @@ const SchoolSearch: React.FC = () => {
     window.open(`schoolSearch/${schoolId}/${schoolName}`)
   }
 
+  const getSchoolList = async () => {
+    try {
+      const res = getSchoolDataList()
+    } catch (error) {
+      errorHandle(error)
+    }
+  }
+
   useEffect(() => {
-    // 获取列表数据，一旦筛选项变化就重新拉
+    getSchoolList()
   }, [filters])
 
   return (
@@ -77,7 +78,7 @@ const SchoolSearch: React.FC = () => {
       <Divider orientation="left">院校列表</Divider>
       <List
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={ds}
         pagination={{ position: "bottom", align: "end", pageSize: 3 }}
         renderItem={(item) => (
           <List.Item

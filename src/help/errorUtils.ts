@@ -7,7 +7,6 @@ import { message } from "antd"
  */
 export const errorHandle = (error: any, msg?: string) => {
   console.error(error)
-
   if (error.response) {
     // 服务器返回了一个错误状态码
     switch (error.response.status) {

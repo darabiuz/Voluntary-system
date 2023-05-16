@@ -19,7 +19,8 @@ const form = function ({
   onCancel,
   form,
   formApi,
-  initialValues = {}
+  initialValues = {},
+  width
 }: FormConfigProps) {
   const FormModal = ({ destroy }: ComponentT) => {
     const [formRef] = useForm()
@@ -55,6 +56,7 @@ const form = function ({
         okText={okText}
         cancelText={cancelText}
         confirmLoading={loading}
+        width={width}
       >
         <Form form={formApi || formRef} initialValues={initialValues}>
           {/* 根据您的需求添加表单项，或根据 config 中的参数动态生成表单项 */}
@@ -99,4 +101,5 @@ interface FormConfigProps {
   form?: React.ReactNode
   initialValues?: { [key in string]: any }
   formApi?: FormInstance
+  width?: number
 }

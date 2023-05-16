@@ -17,4 +17,5 @@ export const LoginMethodMap = {
   [LoginMethodEnum.vCode]: "验证码登录",
   [LoginMethodEnum.passWord]: "密码登录"
 }
+
 export const loginMethodList = generateMap(LoginMethodMap)
