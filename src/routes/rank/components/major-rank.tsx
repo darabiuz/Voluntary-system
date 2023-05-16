@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { Table, Select, Space, Form } from "antd"
 import { columns } from "../constant"
-import {
-  data,
-  provincesOptions,
-  typesOptions
-} from "@routes/school-message/constant"
+import { data } from "@routes/school-message/constant"
 import FormItem from "antd/es/form/FormItem"
+import { provincesOptions, typesOptions } from "@routes/constant"
 
 export const MajorRank: React.FC<{}> = () => {
   const [form] = Form.useForm()

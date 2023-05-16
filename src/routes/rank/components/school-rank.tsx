@@ -13,14 +13,8 @@ import { SorterResult } from "antd/lib/table/interface"
 import EasyWrapper from "@components/easy-wrapper"
 import BlockTitle from "@components/block-title"
 import { columns } from "../constant"
-import {
-  data,
-  provinces,
-  provincesOptions,
-  types,
-  typesOptions
-} from "@routes/school-message/constant"
 import FormItem from "antd/es/form/FormItem"
+import { provincesOptions, typesOptions } from "@routes/constant"
 
 export const SchoolRank: React.FC<{}> = () => {
   const [form] = Form.useForm()

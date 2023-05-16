@@ -35,7 +35,7 @@ export const getInitProvinceLine = (batch: string, category: string) => {
       return 0
   }
 }
-export const handleAddWishList = async (school: string, batch: string) => {
+export const handleAddWishList = async (school: string, batch?: string) => {
   // 1. 获取options
   try {
     const res = await getMajorListForSchool({

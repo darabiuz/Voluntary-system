@@ -50,6 +50,7 @@ function App() {
         )
         if (res.code == 1) {
           localStorage.setItem("userId", res?.data?.id)
+          document.cookie = `userId=${userId}; path=/ ; Secure; HttpOnly`
           message.success("登录成功")
           destroy && destroy()
         }

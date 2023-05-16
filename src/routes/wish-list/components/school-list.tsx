@@ -4,9 +4,9 @@ import MajorList from "./major-list"
 import { Collapse, Space } from "antd"
 import React, { useEffect, useState } from "react"
 import { matrixColumns } from "../constants"
-import { getWishListDetails } from "@safeApi/wish-list"
 import { fetchMajorDetails } from "@safeApi/majors"
 import { errorHandle } from "@help/errorUtils"
+import { getWishListDetails } from "@safeApi/wish-list"
 const { Panel } = Collapse
 
 /** 志愿簿 */
@@ -15,7 +15,7 @@ const SchoolList: React.FC = () => {
 
   const getDataSource = async () => {
     try {
-      const res = await fetchMajorDetails({})
+      const res = await getWishListDetails({})
       setDataSource(res?.list)
     } catch (error) {
       errorHandle(error)

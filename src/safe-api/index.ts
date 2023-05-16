@@ -7,9 +7,6 @@ type RequestOptions = {
 }
 
 /** 这里需要设置baseUrl */
-// const baseUrl = "http://127.0.0.1:5001/"
-const baseUrl = "http://127.0.0.1:8082/"
-
 const fetchApi = async (url: string, options: RequestOptions): Promise<any> => {
   try {
     const response = await fetch(url, options)
@@ -26,6 +23,7 @@ const fetchApi = async (url: string, options: RequestOptions): Promise<any> => {
 }
 
 export const get = async (url: string): Promise<any> => {
+  const baseUrl = "http://127.0.0.1:5001/"
   const apiUrl = `${baseUrl}${url}`
   return fetchApi(apiUrl, { method: "GET" })
 }
@@ -33,8 +31,10 @@ export const get = async (url: string): Promise<any> => {
 export const post = async (
   url: string,
   body: any,
-  options?: RequestOptions
+  options?: RequestOptions,
+  py?: boolean
 ): Promise<any> => {
+  const baseUrl = py ? "http://127.0.0.1:5001/" : "http://127.0.0.1:8082/"
   const apiUrl = `${baseUrl}${url}`
   const headers = { "Content-Type": "application/json" }
   return fetchApi(apiUrl, {

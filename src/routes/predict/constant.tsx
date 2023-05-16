@@ -1,10 +1,10 @@
 import { dialog } from "@components/dialog"
 import { ColumnsType } from "@components/easy-search/easy-search"
 import { generateMap } from "@help/index"
-import { provincesOptions, typesOptions } from "@routes/school-message/constant"
 import { Button, Input, List, Space } from "antd"
 import { ColumnType } from "antd/es/table"
 import { handleAddWishList } from "./help"
+import { provincesOptions, typesOptions } from "@routes/constant"
 
 const descriptionOptions = [
   {

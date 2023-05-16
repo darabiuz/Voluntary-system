@@ -6,11 +6,21 @@ export const splitUrlPaths = (url: string) => {
   return pathSegments
 }
 
-export function filterEmptyValues(obj: { [key: string]: any }) {
+export function filterEmptyValues(
+  obj: { [key: string]: any },
+  config?: {
+    filterNumber: boolean
+  }
+) {
   let newObj: { [key: string]: any } = {}
 
   Object.keys(obj).forEach((key) => {
     const value = obj[key]
+
+    // 当设置需要过滤无效数字-1的时候，不包含在新对象中
+    if (config && value === -1 && config.filterNumber) {
+      return
+    }
 
     // 如果值为null或undefined，不包含在新对象中
     if (value == null) return

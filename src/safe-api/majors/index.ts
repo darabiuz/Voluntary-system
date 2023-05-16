@@ -7,5 +7,5 @@ export const fetchMajorDetails = (body: any) => {
 
 /** 获取院校专业列表 */
 export const getMajorListForSchool = (body: any) => {
-  return post("api/majorList", body)
+  return post("api/majorList", body, undefined, true)
 }
