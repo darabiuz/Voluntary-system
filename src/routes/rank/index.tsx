@@ -7,11 +7,6 @@ import BlockTitle from "@components/block-title"
 import { SchoolRank } from "./components/school-rank"
 import { MajorRank } from "./components/major-rank"
 
-// 假设这是从后端获取的数据
-const data: any[] = [
-  // ...
-]
-
 const RankSearch = () => {
   const [rankType, setRankType] = useState(1)
 
@@ -31,8 +26,6 @@ const RankSearch = () => {
         }}
       />
       {rankType === rankTypeEnum.School && <SchoolRank />}
-      {/* 这一块好像意义不大，不知道要不要砍掉，后面做推荐算法的时候再考虑 */}
-      {rankType === rankTypeEnum.Major && <MajorRank />}
     </EasyWrapper>
   )
 }

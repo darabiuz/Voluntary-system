@@ -24,7 +24,7 @@ export const FilterForm: React.FC<FilterFormType> = ({
         </FormItem>
         <FormItem>
           <Select
-            defaultValue="文科"
+            defaultValue="理科"
             onChange={(value) => onSubjectChange(value)}
             options={subjectOptions}
           />

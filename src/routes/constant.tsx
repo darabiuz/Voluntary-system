@@ -64,3 +64,8 @@ export const typesOptions = types?.map((item) => ({
   value: item,
   label: item
 }))
+
+export const initPageInfo = {
+  pageSize: 5,
+  pageCurrent: 1
+}

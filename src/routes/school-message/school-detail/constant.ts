@@ -1,5 +1,3 @@
-// 您需要实现 getSchoolDetails() 函数来获取学校和专业的相关数据
-// 这里我们只是用一些示例数据来说明如何渲染表格
 export const schoolData = [
   {
     key: "1",
@@ -58,12 +56,15 @@ export const schoolColumns = [
   {
     title: "最低分/排名",
     dataIndex: "minScoreRank",
-    key: "minScoreRank"
+    key: "minScoreRank",
+    render: (v: any, record: any) => {
+      return `${record.minScore}/${record.minScoreRank}`
+    }
   },
   {
     title: "省控线",
-    dataIndex: "provincialControlLine",
-    key: "provincialControlLine"
+    dataIndex: "provincialLine",
+    key: "provincialLine"
   }
 ]
 
@@ -95,8 +96,8 @@ export const majorColumns = [
   },
   {
     title: "最低位次",
-    dataIndex: "minRank",
-    key: "minRank"
+    dataIndex: "minScoreRank",
+    key: "minScoreRank"
   },
   {
     title: "录取批次",
@@ -122,10 +123,51 @@ export const yearsOptions = lastThreeYears.map((item) => {
 export const subjectOptions = [
   {
     label: "文科",
-    value: "liberal"
+    value: "文科"
   },
   {
     label: "理科",
-    value: "science"
+    value: "理科"
+  }
+]
+
+/** 院校详情-->院校简介-->martrix */
+export const schoolInfoColumns = [
+  {
+    key: "place",
+    label: "地理位置",
+    transform: (_: any, data: any) => {
+      return `${data.province}${data.countryName}`
+    }
+  },
+  {
+    key: "dualName",
+    label: "双一流",
+    transform: (item: any, _: any) => {
+      return item === "双一流" ? "是" : "否"
+    }
+  },
+  {
+    key: "type",
+    label: "院校类型"
+  },
+  {
+    key: "natureName",
+    label: "办学类型"
+  },
+  {
+    key: "levelName",
+    label: "办学等级"
+  },
+  {
+    key: "feature",
+    label: "办学特色",
+    transform: (_: any, data: any) => {
+      const { isNine, isTwo } = data
+      const is985 = isNine === 1 ? "985" : ""
+      const is211 = isTwo === 1 ? "211" : ""
+      const featureObj = [is985, is211].filter((item) => item)
+      return featureObj?.length ? featureObj.join(" | ") : "无"
+    }
   }
 ]

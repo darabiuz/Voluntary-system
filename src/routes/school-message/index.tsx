@@ -1,4 +1,3 @@
-// src/components/VolunteerForm.tsx
 import BlockTitle from "@components/block-title"
 import EasyWrapper from "@components/easy-wrapper"
 import React, { useEffect, useState } from "react"
@@ -6,12 +5,11 @@ import EasyFilter from "./components/easy-filter"
 import { filterData } from "./constant"
 import { Space, List, Button, Divider } from "antd"
 import styles from "./index.module.scss"
-import { Link, useSearchParams } from "react-router-dom"
-import { dialog } from "@components/dialog"
 import { errorHandle } from "@help/errorUtils"
 import { getSchoolDataList } from "@safeApi/school"
 import { filterEmptyValues } from "@help/formatUtils"
 import { handleAddWishList } from "@routes/predict/help"
+import { initPageInfo } from "@routes/constant"
 
 const SchoolSearch: React.FC = () => {
   /** 院校信息 */
@@ -24,10 +22,7 @@ const SchoolSearch: React.FC = () => {
     type: "全部"
   })
   /** 页面信息 */
-  const [pageInfo, setPageInfo] = useState<PageInfoType>({
-    pageSize: 5,
-    pageCurrent: 1
-  })
+  const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo)
 
   const handleFilterChange = (value: string, key: string) => {
     setFilters((prev) => ({
@@ -66,7 +61,6 @@ const SchoolSearch: React.FC = () => {
   }
 
   useEffect(() => {
-    // 分页和筛选项变化时，向后台拉取数据
     getSchoolList()
   }, [filters, pageInfo])
 
@@ -119,7 +113,7 @@ const SchoolSearch: React.FC = () => {
                 </Button>,
                 <Button
                   onClick={() => {
-                    handleClickForDetails(data.id, data.title)
+                    handleClickForDetails(data.schoolId, data.name)
                   }}
                 >
                   查看详情
@@ -130,9 +124,7 @@ const SchoolSearch: React.FC = () => {
                 className={styles.listItem}
                 title={
                   <Space>
-                    <Link to="#" target="_blank" className={styles.title}>
-                      {data.name}
-                    </Link>
+                    <span className={styles.title}>{data.name}</span>
                     <span
                       className={styles.locationSpan}
                     >{`${data.cityName}${data.countryName}`}</span>

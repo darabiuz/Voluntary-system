@@ -9,19 +9,21 @@ import { isValidReactNode } from "@help/typeUtils"
 export const MatrixTable: FC<MatrixTableProps<Column[]>> = ({
   columns,
   dataSource,
-  transform = (_, data) => {
-    if (!isValidReactNode(data)) return null
-    return data
-  },
   ...rest
 }) => {
   return (
     <>
       <Descriptions column={1} {...rest}>
         {columns?.map((item) => {
+          const {
+            transform = (value, _) => {
+              if (!isValidReactNode(value)) return null
+              return value
+            }
+          } = item
           return (
             <Descriptions.Item label={item.label} key={item.key}>
-              {transform(item, dataSource[item.key])}
+              {transform(dataSource[item.key], dataSource)}
             </Descriptions.Item>
           )
         })}
@@ -35,10 +37,10 @@ type ReactNode = React.ReactNode
 interface Column {
   label: React.ReactNode
   key: string
+  transform?: (column: React.ReactNode, data: any) => ReactNode
 }
 
 type MatrixTableProps<T extends Column[]> = {
   columns: T
   dataSource: { [K in T[number]["key"]]: any }
-  transform?: (column: Column, data: any) => ReactNode
 } & DescriptionsProps

@@ -4,7 +4,6 @@ import MajorList from "./major-list"
 import { Collapse, Space } from "antd"
 import React, { useEffect, useState } from "react"
 import { matrixColumns } from "../constants"
-import { fetchMajorDetails } from "@safeApi/majors"
 import { errorHandle } from "@help/errorUtils"
 import { getWishListDetails } from "@safeApi/wish-list"
 const { Panel } = Collapse
