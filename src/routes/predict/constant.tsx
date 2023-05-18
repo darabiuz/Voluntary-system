@@ -1,7 +1,7 @@
 import { dialog } from "@components/dialog"
 import { ColumnsType } from "@components/easy-search/easy-search"
 import { generateMap } from "@help/index"
-import { Button, Input, List, Space } from "antd"
+import { Button, Input, List, Modal, Space, Tooltip } from "antd"
 import { ColumnType } from "antd/es/table"
 import { handleAddWishList } from "./help"
 import { provincesOptions, typesOptions } from "@routes/constant"
@@ -250,12 +250,49 @@ export const mbtiTableColumns = [
   {
     title: "人格特点",
     dataIndex: "characteristics",
-    key: "characteristics"
+    key: "characteristics",
+    render: (v: any) => {
+      return (
+        <Tooltip title={v}>
+          {v.slice(0, 10)}
+          {"..."}
+        </Tooltip>
+      )
+    }
   },
   {
-    title: "适合专业",
+    title: "操作",
     dataIndex: "suitableMajor",
-    key: "suitableMajor"
+    key: "suitableMajor",
+    render: (v: string) => {
+      const handleClick = (v: string) => {
+        const majorList = v.slice(1, -1).split(",")
+        dialog.form({
+          title: "该mbti适合的专业",
+          footer: null,
+          form: (
+            <List
+              bordered
+              size="small"
+              dataSource={majorList}
+              pagination={{ pageSize: 8, pageSizeOptions: [] }}
+              renderItem={(item: any) => {
+                return <List.Item>{item.slice(2, -1)}</List.Item>
+              }}
+            />
+          )
+        })
+      }
+      return (
+        <Button
+          onClick={() => {
+            handleClick(v)
+          }}
+        >
+          查看详情
+        </Button>
+      )
+    }
   }
 ]
 

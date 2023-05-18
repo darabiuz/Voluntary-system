@@ -1,5 +1,6 @@
 import {
   Button,
+  Descriptions,
   Form,
   FormInstance,
   FormItemProps,
@@ -8,7 +9,8 @@ import {
   Radio,
   RadioGroupProps,
   Select,
-  SelectProps
+  SelectProps,
+  Space
 } from "antd"
 import { FormItem } from "@components/help"
 import { useForm } from "antd/es/form/Form"
@@ -28,9 +30,15 @@ export type ColumnsType = BaseType & FormItemProp
 export const EasySearch: React.FC<{
   columns: ColumnsType[]
   formApi?: any
-}> = ({ columns, formApi }) => {
+  onValuesChange?: (v: any) => void
+}> = ({ columns, formApi, onValuesChange }) => {
   return (
-    <Form form={formApi}>
+    <Form
+      form={formApi}
+      onValuesChange={(v) => {
+        onValuesChange && onValuesChange(v)
+      }}
+    >
       {columns.map((item) => {
         const { tag, label, name, required = false, ...others } = item
         switch (tag) {

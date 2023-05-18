@@ -46,6 +46,7 @@ const MajorsSearch: React.FC = () => {
 
   /** 获取模糊匹配专业列表 */
   const handleSearch = debounce(async (value: string) => {
+    setPageInfo((prev) => ({ ...prev, pageCurrent: 1 }))
     if (value) {
       const majorList = await getRelatedMajorsList(
         new URLSearchParams({ content: value })
@@ -91,6 +92,7 @@ const MajorsSearch: React.FC = () => {
           position: "bottom",
           align: "end",
           pageSize: pageInfo.pageSize,
+          current: pageInfo.pageCurrent,
           total,
           onChange: handlePageChange, // 当页面改变时触发这个函数
           pageSizeOptions: ["5", "10", "20", "50"]

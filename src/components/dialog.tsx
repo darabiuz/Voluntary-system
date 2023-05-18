@@ -6,9 +6,8 @@
  * 4. 自动loading
  */
 import React, { useState } from "react"
-import { Form, FormInstance, Modal, ModalFuncProps, message } from "antd"
+import { Form, FormInstance, Modal, ModalFuncProps } from "antd"
 import { ComponentT, showComponents } from "./help"
-import { errorHandle } from "@help/errorUtils"
 import { useForm } from "antd/es/form/Form"
 
 const form = function ({
@@ -20,7 +19,8 @@ const form = function ({
   form,
   formApi,
   initialValues = {},
-  width
+  width,
+  ...others
 }: FormConfigProps) {
   const FormModal = ({ destroy }: ComponentT) => {
     const [formRef] = useForm()
@@ -57,6 +57,7 @@ const form = function ({
         cancelText={cancelText}
         confirmLoading={loading}
         width={width}
+        {...others}
       >
         <Form form={formApi || formRef} initialValues={initialValues}>
           {/* 根据您的需求添加表单项，或根据 config 中的参数动态生成表单项 */}
@@ -68,6 +69,17 @@ const form = function ({
 
   return showComponents({ Component: FormModal })
 }
+// const show = function ({ title = "弹窗", form, width }: FormConfigProps) {
+//   const FormModal = () => {
+//     return (
+//       <Modal title={title} open={true} width={width}>
+//         {form}
+//       </Modal>
+//     )
+//   }
+
+//   return showComponents({ Component: FormModal })
+// }
 
 const confirm = function ({ ...props }: ModalFuncProps) {
   Modal.confirm({
@@ -102,4 +114,5 @@ interface FormConfigProps {
   initialValues?: { [key in string]: any }
   formApi?: FormInstance
   width?: number
+  footer?: any
 }

@@ -1,11 +1,13 @@
 /** 系统home首页 */
-import { Layout, Typography, Image, Carousel } from "antd"
+import { Layout, Image, Carousel } from "antd"
 import styles from "./index.module.scss"
 import { guideList } from "./constant"
 import { GuideCard } from "./component"
 import EasyWrapper from "@components/easy-wrapper"
 import BlockTitle from "@components/block-title"
 const { Content } = Layout
+import Img1 from "../../assets/home-bg-1.jpeg"
+import Img2 from "../../assets/home-bg-2.jpg"
 
 const Home: React.FC = function () {
   return (
@@ -16,10 +18,10 @@ const Home: React.FC = function () {
           <BlockTitle content="四川省高考志愿填报预测系统" />
           <Carousel autoplay>
             <div>
-              <Image src="https://via.placeholder.com/1920x600" />
+              <Image src={Img1} height={400} width={1400} />
             </div>
             <div>
-              <Image src="https://via.placeholder.com/1920x600" />
+              <Image src={Img2} height={400} width={1400} />
             </div>
           </Carousel>
           <div className={styles.siteLayoutContent}>

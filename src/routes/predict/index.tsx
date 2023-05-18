@@ -8,7 +8,7 @@ const VolunteerPrediction: React.FC = () => {
   return (
     <EasyWrapper>
       <BlockTitle content="智能预测填报" />
-      {/* <MbtiRecommendCard /> */}
+      <MbtiRecommendCard />
       <SchoolRecommendCard />
     </EasyWrapper>
   )

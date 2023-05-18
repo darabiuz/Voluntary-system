@@ -1,6 +1,6 @@
 import { EasySearch } from "@components/easy-search/easy-search"
 import { Button, Card, Form, Input, Space, Table, Tabs, message } from "antd"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import styles from "../index.module.scss"
 import {
   mbtiList,
@@ -26,8 +26,8 @@ const MbtiRecommendCard: FC = () => {
     if (mbti && !mbtiList.includes(String(mbti).toUpperCase())) {
       message.warning("该人格不存在")
     }
-    // const res = await getMajorResultForMbti({ mbti })
-    // setDataSource(res?.data)
+    const res = await getMajorResultForMbti({ mbti })
+    setDataSource([res])
   }
 
   return (

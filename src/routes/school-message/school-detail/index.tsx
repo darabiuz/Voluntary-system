@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react"
-import styles from "./index.module.scss"
 import { useParams } from "react-router-dom"
 import { Table } from "antd"
 import EasyWrapper from "@components/easy-wrapper"
 import BlockTitle from "@components/block-title"
 import { MatrixTable } from "@components/martrix"
 import Title from "antd/es/typography/Title"
-import {
-  majorColumns,
-  majorData,
-  schoolColumns,
-  schoolData,
-  schoolInfoColumns
-} from "./constant"
+import { majorColumns, schoolColumns, schoolInfoColumns } from "./constant"
 import { FilterForm } from "./components/filter-form"
 import {
   getSchoolDetailBaseInfo,
@@ -122,9 +115,11 @@ export const SchoolDetails: React.FC = () => {
       <Title level={5}>各专业收分线</Title>
       <FilterForm
         onYearsChange={(v) => {
+          setPageInfo((prev) => ({ ...prev, pageCurrent: 1 }))
           setFilterMajor((prev) => ({ ...prev, year: Number(v) }))
         }}
         onSubjectChange={(v) => {
+          setPageInfo((prev) => ({ ...prev, pageCurrent: 1 }))
           setFilterMajor((prev) => ({ ...prev, subject: v }))
         }}
       />
@@ -133,6 +128,7 @@ export const SchoolDetails: React.FC = () => {
         columns={majorColumns}
         pagination={{
           pageSize: pageInfo.pageSize,
+          current: pageInfo.pageCurrent,
           total,
           onChange: handlePageChange, // 当页面改变时触发这个函数
           pageSizeOptions: ["5", "10", "20", "50"]

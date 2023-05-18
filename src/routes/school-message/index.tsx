@@ -25,11 +25,13 @@ const SchoolSearch: React.FC = () => {
   const [pageInfo, setPageInfo] = useState<PageInfoType>(initPageInfo)
 
   const handleFilterChange = (value: string, key: string) => {
+    setPageInfo((prev) => ({ ...prev, pageCurrent: 1 }))
     setFilters((prev) => ({
       ...prev,
       [key]: value
     }))
   }
+
   const handlePageChange = (page: number, pageSize: number) => {
     setPageInfo({
       pageCurrent: page,
@@ -87,6 +89,7 @@ const SchoolSearch: React.FC = () => {
           position: "bottom",
           align: "end",
           pageSize: pageInfo.pageSize,
+          current: pageInfo.pageCurrent,
           total,
           onChange: handlePageChange, // 当页面改变时触发这个函数
           pageSizeOptions: ["5", "10", "20", "50"]
