@@ -10,11 +10,11 @@ export const matrixColumns = [
   {
     label: "志愿专业",
     key: "wishMajorList"
-  },
-  {
-    label: "上岸概率",
-    key: "admissionProbability"
   }
+  // {
+  //   label: "上岸概率",
+  //   key: "admissionProbability"
+  // }
 ]
 
 export const tableColumns = [

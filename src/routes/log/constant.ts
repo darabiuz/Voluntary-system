@@ -1,5 +1,3 @@
-// import { generateMap } from "../../help"
-
 export const generateMap = (mapInfo: { [key: string]: any }) => {
   if (!mapInfo && !Object.keys(mapInfo).length) return []
   return Object.keys(mapInfo)?.map((item) => ({

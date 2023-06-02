@@ -44,7 +44,6 @@ const SchoolList: React.FC = () => {
           )
         })}
       </Collapse>
-      <div style={{ width: "300px", background: "red" }}>111</div>
     </Space>
   )
 }
