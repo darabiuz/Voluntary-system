@@ -4,7 +4,7 @@ import { FormItem } from "@components/help"
 import { errorHandle } from "@help/errorUtils"
 import { getMajorListForSchool } from "@safeApi/majors"
 import { addWishList } from "@safeApi/wish-list"
-import { Button, Form, Select, Space, message } from "antd"
+import { Button, Form, List, Select, Space, message } from "antd"
 
 export function arrayToObject(array: string[]) {
   const keys = ["dual_class", "985", "211"]
@@ -122,4 +122,26 @@ export const handleAddWishList = async (school: string, batch?: string) => {
   } catch (error) {
     errorHandle(error)
   }
+}
+
+export const handleMajorClick = () => {
+  dialog.form({
+    title: `意愿专业上岸概率预测`,
+    form: (
+      <List
+        dataSource={["计算机科学与技术"]}
+        size="small"
+        renderItem={(item) => {
+          return (
+            <List.Item>
+              <span>
+                {item}
+                {": 97.1%"}
+              </span>
+            </List.Item>
+          )
+        }}
+      />
+    )
+  })
 }

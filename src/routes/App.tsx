@@ -2,13 +2,10 @@ import { Layout, Menu, Tabs, message } from "antd"
 import { UserOutlined } from "@ant-design/icons"
 import styles from "./index.module.scss"
 import { menuList } from "./constant"
-import { showComponents } from "@components/help"
-import AuthModal from "./log/log-in"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { dialog } from "@components/dialog"
 import { LogFormDetail } from "./log/components"
-import { loginMethodList } from "./log/constant"
 import { useForm } from "antd/es/form/Form"
 import { userLogin } from "@safeApi/log-in"
 import { errorHandle } from "@help/errorUtils"
@@ -52,6 +49,8 @@ function App() {
           localStorage.setItem("userId", res?.data?.id)
           document.cookie = `userId=${userId}; path=/ ; Secure; HttpOnly`
           message.success("登录成功")
+          navigate("/userCenter")
+          setCurrentArr(undefined)
           destroy && destroy()
         }
         errorHandle(null, res?.message)

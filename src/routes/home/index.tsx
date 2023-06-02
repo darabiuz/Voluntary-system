@@ -12,7 +12,6 @@ import Img2 from "../../assets/home-bg-2.jpg"
 const Home: React.FC = function () {
   return (
     <>
-      {/* 内容 */}
       <EasyWrapper>
         <Content>
           <BlockTitle content="四川省高考志愿填报预测系统" />

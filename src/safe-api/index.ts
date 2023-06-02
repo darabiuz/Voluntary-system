@@ -34,7 +34,7 @@ export const post = async (
   options?: RequestOptions,
   py?: boolean
 ): Promise<any> => {
-  const baseUrl = py ? "http://127.0.0.1:5001/" : "http://127.0.0.1:8082/"
+  const baseUrl = py ? "http://127.0.0.1:5001/" : "http://127.0.0.1:8080/"
   const apiUrl = `${baseUrl}${url}`
   const headers = { "Content-Type": "application/json" }
   return fetchApi(apiUrl, {

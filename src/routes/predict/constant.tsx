@@ -3,7 +3,7 @@ import { ColumnsType } from "@components/easy-search/easy-search"
 import { generateMap } from "@help/index"
 import { Button, Input, List, Modal, Space, Tooltip } from "antd"
 import { ColumnType } from "antd/es/table"
-import { handleAddWishList } from "./help"
+import { handleAddWishList, handleMajorClick } from "./help"
 import { provincesOptions, typesOptions } from "@routes/constant"
 
 const descriptionOptions = [
@@ -110,7 +110,7 @@ export const searchColumns: ColumnsType[] = [
     name: "majorFavor",
     mode: "multiple",
     allowClear: true,
-    options: provincesOptions
+    options: [{ label: "计算机科学与技术", value: "1" }]
   }
 ]
 
@@ -223,7 +223,11 @@ export const tableColumns = (hasMajor: boolean, batch: string) =>
             >
               +志愿簿
             </Button>
-            {hasMajor && <Button type="primary">预测专业上岸率</Button>}
+            {hasMajor && (
+              <Button type="primary" onClick={handleMajorClick}>
+                预测专业上岸率
+              </Button>
+            )}
           </Space>
         )
       }
